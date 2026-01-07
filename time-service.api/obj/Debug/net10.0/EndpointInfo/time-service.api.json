@@ -1,0 +1,64 @@
+{
+  "openapi": "3.1.1",
+  "info": {
+    "title": "time-service.api | v1",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://localhost:7260"
+    },
+    {
+      "url": "http://localhost:5156"
+    }
+  ],
+  "paths": {
+    "/time": {
+      "get": {
+        "tags": [
+          "time-service.api"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AnonymousTypeOfDateTimeAndstring"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AnonymousTypeOfDateTimeAndstring": {
+        "required": [
+          "currentTime",
+          "timeZone"
+        ],
+        "type": "object",
+        "properties": {
+          "currentTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "timeZone": {
+            "type": [
+              "null",
+              "string"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "time-service.api"
+    }
+  ]
+}
