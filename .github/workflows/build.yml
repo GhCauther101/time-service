@@ -1,0 +1,35 @@
+name: Time Service CI
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+env:
+  DOTNET_VERSION: "10.X"
+  SOLUTION_PATH: "time-service.sln"
+  API_PROJECT_PATH: "time-service.api"
+  PUBLISH_DIR: "./publish"
+
+jobs:
+  build:
+    name: Build Action is processing
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Restore step
+        run: dotent restore ${{ env.SOLUTION_PATH }}
+
+      - name: Build step
+        run: dotnet build ${{ env.SOLUTION_PATH }} --configuration Release --no-restore
+
+      - name: Publish step
+        run: dotnet publish ${{ env.API_PROJECT_PATH }} --configuration Release --no-restore --property:PublishDir=${{ env.PUBLISH_DIR}}
